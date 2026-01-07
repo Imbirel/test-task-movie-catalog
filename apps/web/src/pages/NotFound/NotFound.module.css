@@ -1,0 +1,8 @@
+.page-wrapper {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  min-height: 100vh;
+  text-align: center;
+  gap: 16px;
+}

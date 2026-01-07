@@ -9,10 +9,13 @@
 :root {
   --primary-color: #2563eb;
   --secondary-color: #7c3aed;
+
   --placeholder-color: #e0e0e0;
   --background-color: #f8fafc;
   --card-background: #ffffff;
+
   --border-color: #e5e8ed;
+  --card-hover-border: var(--text-primary);
 
   --text-primary: #1e293b;
   --text-secondary: #64748b;
@@ -37,10 +40,13 @@
   :root {
     --primary-color: #3b82f6;
     --secondary-color: #a78bfa;
+
     --placeholder-color: #27272a;
     --background-color: #09090b;
     --card-background: #18181b;
+
     --border-color: #18181b;
+    --card-hover-border: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
 
     --text-primary: #fafafa;
     --text-secondary: #a1a1aa;
@@ -57,8 +63,6 @@
       0 20px 25px -5px rgba(0, 0, 0, 0.6);
 
     --transition: all 0.3s ease;
-
-    --card-hover-border: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   }
 } */
 
@@ -97,6 +101,25 @@ input, button, textarea, select {
   background: transparent;
 }
 
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button,
+input::-webkit-search-results-button,
+input::-webkit-search-results-decoration {
+  display: none;
+}
+
+input::-ms-clear,
+input::-ms-reveal {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+input {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 button {
   cursor: pointer;
   border: 1px solid transparent;
@@ -106,7 +129,7 @@ button {
 a {
   display: inline-block;
   color: inherit;
-  text-decoration: none;
+  /* text-decoration: none; */
 }
 
 img, picture, svg, video {
@@ -129,4 +152,17 @@ p {
 
 h1, h2, h3, h4, h5, h6 {
   text-wrap: balance;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+  clip-path: inset(50%);
 }

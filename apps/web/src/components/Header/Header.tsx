@@ -1,4 +1,4 @@
-import { SearchBar } from '../SearchBar/SearchBar';
+import { SearchBar } from '@/components/SearchBar/SearchBar';
 import styles from './Header.module.css';
 
 export function Header() {

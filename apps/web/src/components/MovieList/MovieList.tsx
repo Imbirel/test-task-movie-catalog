@@ -1,21 +1,21 @@
-import { useEffect, useState } from 'react';
-import { getMovies } from '../../api/api';
-import { MovieCard } from '../MovieCard/MovieCard';
-import type { Movie } from '@packages/shared';
+import { MovieCard } from '@/components/MovieCard/MovieCard';
 import styles from './MovieList.module.css';
+import { useMovies } from '@/api/hooks/useMovies';
 
 export function MovieList() {
-  const [movies, setMovies] = useState<Movie[]>([]);
+  const { data: movies, isPlaceholderData, isLoading } = useMovies();
 
-  useEffect(() => {
-    getMovies().then(setMovies);
-  }, []);
+  if (isLoading) return <div>Загрузка...</div>;
 
   return (
-    <div className={styles.list}>
-      {movies.map((movie) => (
+    <search
+      className={`${styles['movie-list']} ${isPlaceholderData ? styles.loadingOverlay : ''}`}
+      aria-label="Результаты"
+    >
+      {movies?.map((movie) => (
         <MovieCard key={movie.id} {...movie} />
       ))}
-    </div>
+      {movies?.length === 0 && <p className={styles['movie-list__empty']}>Ничего не найдено</p>}
+    </search>
   );
 }
