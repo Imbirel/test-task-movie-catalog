@@ -91,6 +91,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+
 ul, ol {
   list-style: none;
 }

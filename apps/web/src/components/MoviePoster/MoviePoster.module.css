@@ -1,0 +1,20 @@
+.image-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  background-color: var(--placeholder-color);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: var(--transition);
+}
+
+:global(.animate-poster-parent):hover .image,
+:global(.animate-poster-parent):focus-within .image {
+  transform: scale(1.05);
+}

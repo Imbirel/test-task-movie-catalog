@@ -32,7 +32,9 @@ export const SearchBar = () => {
     updateUrl(value);
   };
 
-  const handleClear = useCallback(() => {
+  const handleClear = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
     setText('');
     updateUrl('');
     inputRef.current?.focus();

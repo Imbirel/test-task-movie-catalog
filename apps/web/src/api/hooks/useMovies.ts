@@ -5,15 +5,13 @@ import { getMovies } from '@/api/movies';
 
 export function useMovies() {
   const [searchParams] = useSearchParams();
-  const query = searchParams.get("q") || "";
-  
+  const query = searchParams.get('q') || '';
   const deferredQuery = useDeferredValue(query);
 
   const queryResult = useQuery({
-    queryKey: ["movies", deferredQuery],
-    queryFn: () => getMovies(deferredQuery),
+    queryKey: ['movies', deferredQuery],
+    queryFn: ({ signal }) => getMovies(deferredQuery, signal),
     placeholderData: keepPreviousData,
-    staleTime: 0,
   });
 
   return {
