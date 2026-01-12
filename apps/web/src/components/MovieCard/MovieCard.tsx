@@ -1,22 +1,30 @@
-import type { Movie } from '@packages/shared';
+import type { MovieFull, MoviePreview } from '@packages/shared';
+import { memo } from 'react';
 import styles from './MovieCard.module.css';
 import { MoviePoster } from '@/components/MoviePoster/MoviePoster';
 
-export function MovieCard({ id, title, year, poster }: Movie) {
+interface MovieCardProps extends MoviePreview {
+  onSelect: (id: MovieFull['id']) => void;
+}
+
+export const MovieCard = memo(function MovieCard({ id, title, poster, year, onSelect }: MovieCardProps) {
   return (
     <article className={styles['movie-card']}>
       <button
         type="button"
+        onClick={() => onSelect(id)}
         className={`${styles['movie-card__button']} animate-poster-parent`}
         data-movie-id={id}
         aria-label={`Открыть детали фильма ${title}`}
       >
         <MoviePoster title={title} poster={poster} />
         <div className={styles['movie-card__info']}>
-          <h2 className={styles['movie-card__title']}>{title}</h2>
-          <span className={styles['movie-card__year']}>{year}</span>
+          <h3 className={styles['movie-card__title']}>{title}</h3>
+          <time className={styles['movie-card__year']} dateTime={year.toString()}>
+            {year}
+          </time>
         </div>
       </button>
     </article>
   );
-}
+});

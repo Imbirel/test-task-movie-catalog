@@ -7,9 +7,9 @@
   margin: 0 auto;
 }
 
-.movie-list__loading,
-.movie-list__error,
-.movie-list__empty {
+.loading,
+.error,
+.empty {
   text-align: center;
   grid-column: 1 / -1;
   padding: 40px 0;
@@ -21,77 +21,4 @@
   opacity: 0.6;
   pointer-events: none;
   transition: opacity 0.3s ease;
-}
-
-.movie-card__modal-content {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 24px;
-  align-items: start;
-}
-
-.movie-card__modal-info {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  color: var(--text-primary);
-}
-
-.movie-card__modal-title {
-  margin: 0;
-  margin-right: 35px;
-  font-size: 24px;
-  font-weight: 700;
-}
-
-.movie-card__modal-year {
-  font-size: 16px;
-  color: var(--text-secondary);
-}
-
-.movie-card__modal-genres {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.movie-card__badge {
-  background-color: var(--placeholder-color);
-  padding: 4px 12px;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.movie-card__modal-description {
-  line-height: 1.6;
-  font-size: 16px;
-  margin: 8px 0;
-  color: var(--text-secondary);
-  white-space: pre-wrap;
-}
-
-.movie-card__modal-rating {
-  margin-top: auto;
-  padding-top: 16px;
-}
-
-@media (max-width: 650px) {
-  .movie-card__modal-content {
-    grid-template-columns: 1fr;
-  }
-
-  .movie-card__modal-info {
-    align-items: center;
-    text-align: center;
-  }
-
-  .movie-card__modal-title {
-    font-size: 22px;
-    margin: 0;
-  }
-
-  .movie-card__modal-genres {
-    justify-content: center;
-  }
 }

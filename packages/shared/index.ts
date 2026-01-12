@@ -1,23 +1,18 @@
-export interface Movie {
+export interface MoviePreview {
   id: number;
   title: string;
   year: number;
+  poster: string;
+}
+
+export interface MovieDetail extends MoviePreview {
   genre: string[];
   rating: number;
-  director: string;
   description: string;
-  poster: string;
+}
+
+export interface MovieFull extends MovieDetail {
+  director: string;
   duration: string;
   cast: string[];
-}
-
-export interface MoviesResponse {
-  data: Movie[];
-  total: number;
-}
-
-export interface MovieFilters {
-  search?: string;
-  page?: number;
-  limit?: number;
 }

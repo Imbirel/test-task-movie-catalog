@@ -1,11 +1,23 @@
-import type { Movie } from '@packages/shared';
+import type { MovieDetail, MovieFull, MoviePreview } from '@packages/shared';
 import { api } from './axios-instance';
 import type { GenericAbortSignal } from 'axios';
 
-export async function getMovies(searchTerm?: string, signal?: GenericAbortSignal): Promise<Movie[]> {
-  const { data } = await api.get<Movie[]>('/movies', {
+export async function getMovies(searchTerm?: string, signal?: GenericAbortSignal): Promise<MoviePreview[]> {
+  const { data } = await api.get<MoviePreview[]>('/movies', {
     params: {
       title_like: searchTerm || undefined,
+      _fields: 'id,title,poster,year',
+    },
+    signal,
+  });
+
+  return data;
+}
+
+export async function getMovieById(id: MovieFull['id'], signal?: GenericAbortSignal): Promise<MovieDetail> {
+  const { data } = await api.get<MovieDetail>(`/movies/${id}`, {
+    params: {
+      _fields: 'id,title,poster,year,genre,description,rating',
     },
     signal,
   });
