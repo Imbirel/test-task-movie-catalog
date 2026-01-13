@@ -5,11 +5,12 @@ import { MoviePoster } from '@/components/MoviePoster/MoviePoster';
 
 interface MovieCardProps extends MoviePreview {
   onSelect: (id: MovieFull['id']) => void;
+  index: number;
 }
 
-export const MovieCard = memo(function MovieCard({ id, title, poster, year, onSelect }: MovieCardProps) {
+export const MovieCard = memo(function MovieCard({ id, title, poster, year, onSelect, index }: MovieCardProps) {
   return (
-    <article className={styles['movie-card']}>
+    <article className={styles['movie-card']} role="listitem" aria-posinset={index + 1}>
       <button
         type="button"
         onClick={() => onSelect(id)}

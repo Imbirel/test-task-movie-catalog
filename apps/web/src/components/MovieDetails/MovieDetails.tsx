@@ -10,7 +10,7 @@ interface MovieDetailsProps {
 export function MovieDetails({ id }: MovieDetailsProps) {
   const { data: movie, isLoading, isError } = useMovieById(id);
 
-  if (isLoading) return <div className={styles['loading']}>Загружаем детали...</div>;
+  if (isLoading) return <div className={styles['loading']} aria-live="polite">Загружаем детали...</div>;
   if (isError || !movie) return <div className={styles['error']}>Фильм не найден</div>;
 
   const { title, year, genre, description, rating, poster } = movie;

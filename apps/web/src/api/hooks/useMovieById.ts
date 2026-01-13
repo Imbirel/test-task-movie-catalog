@@ -6,7 +6,7 @@ export function useMovieById(id: MovieFull['id'] | null) {
   return useQuery<MovieDetail>({
     queryKey: ['movie', id],
     queryFn: ({ signal }) => getMovieById(id!, signal),
-    enabled: !!id,
+    enabled: id !== null,
     staleTime: 1000 * 60 * 60,
   });
 }
