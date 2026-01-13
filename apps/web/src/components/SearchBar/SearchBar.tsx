@@ -1,7 +1,5 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { useSearchParams } from 'react-router';
 import styles from './SearchBar.module.css';
-import { useDebounceCallback } from '@/hooks/useDebounceCallback';
+import { useUrlSearch } from '@/hooks/useUrlSearch';
 
 const SearchIcon16 = () => (
   <svg
@@ -9,7 +7,7 @@ const SearchIcon16 = () => (
     width="16"
     height="16"
     viewBox="0 0 32 32"
-    className={styles['search__icon']}
+    className={styles['icon-search']}
     aria-hidden="true"
   >
     <path
@@ -29,43 +27,7 @@ const CloseIcon16 = () => (
 );
 
 export const SearchBar = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const inputRef = useRef<HTMLInputElement>(null);
-  const initialQuery = searchParams.get('q') || '';
-  const [text, setText] = useState(initialQuery);
-
-  useEffect(() => {
-    setText(initialQuery);
-  }, [initialQuery]);
-
-  const updateUrl = useDebounceCallback((value: string) => {
-    const trimmedValue = value.trim();
-
-    setSearchParams(
-      (prev) => {
-        if (trimmedValue) prev.set('q', trimmedValue);
-        else prev.delete('q');
-        return prev;
-      },
-      { replace: true }
-    );
-  }, 300);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setText(value);
-    updateUrl(value);
-  };
-
-  const handleClear = useCallback(
-    (e: React.MouseEvent) => {
-      e.preventDefault();
-      setText('');
-      updateUrl('');
-      inputRef.current?.focus();
-    },
-    [updateUrl]
-  );
+  const { text, inputRef, handleChange, handleClear } = useUrlSearch();
 
   return (
     <search className={styles['search']} aria-label="Поиск по каталогу">

@@ -11,7 +11,7 @@ export function useVirtualGrid() {
   const [containerWidth, setContainerWidth] = useState(0);
   const observerRef = useRef<ResizeObserver | null>(null);
 
-  const debouncedSetWidth = useDebounceCallback((width: number) => {
+  const { run: debouncedSetWidth, cancel: cancelDebounce } = useDebounceCallback((width: number) => {
     setContainerWidth(width);
   }, 150);
 
@@ -34,8 +34,11 @@ export function useVirtualGrid() {
   );
 
   useEffect(() => {
-    return () => observerRef.current?.disconnect();
-  }, []);
+    return () => {
+      observerRef.current?.disconnect();
+      cancelDebounce();
+    };
+  }, [cancelDebounce]);
 
   const columns = Math.max(1, Math.floor(containerWidth / 250));
   const rowCount = Math.ceil((movies.length + (hasNextPage ? 1 : 0)) / columns);

@@ -7,7 +7,7 @@ import type { MovieFull } from '@packages/shared';
 import { useVirtualGrid } from '@/hooks/useVirtualGrid';
 
 export function MovieList() {
-  const {movies, isLoading, isError, listRef, rowVirtualizer, virtualRows, columns, scrollMargin} = useVirtualGrid();
+  const { movies, isLoading, isError, listRef, rowVirtualizer, virtualRows, columns, scrollMargin } = useVirtualGrid();
   const [selectedMovieId, setSelectedMovieId] = useState<MovieFull['id'] | null>(null);
 
   const handleSelect = useCallback((id: MovieFull['id']) => {
@@ -65,8 +65,17 @@ export function MovieList() {
                 ) : (
                   rowItems.map((movie, subIndex) => {
                     const movieIndex = startIndex + subIndex;
+                    const isPriority = movieIndex < columns * 2;
 
-                    return <MovieCard key={movie.id} {...movie} onSelect={handleSelect} index={movieIndex} />;
+                    return (
+                      <MovieCard
+                        key={movie.id}
+                        {...movie}
+                        onSelect={handleSelect}
+                        index={movieIndex}
+                        priority={isPriority}
+                      />
+                    );
                   })
                 )}
               </div>

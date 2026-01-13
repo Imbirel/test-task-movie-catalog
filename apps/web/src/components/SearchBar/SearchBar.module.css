@@ -1,16 +1,16 @@
-.search {
-  position: relative;
-  width: 100%;
-  max-width: 500px;
-}
-
-.search__icon {
+.icon-search {
   pointer-events: none;
   position: absolute;
   top: 50%;
   left: 16px;
   transform: translateY(-50%);
   color: var(--text-secondary);
+}
+
+.search {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
 }
 
 .search__input {

@@ -1,4 +1,4 @@
-import { useCallback, useRef, useLayoutEffect, useEffect } from 'react';
+import { useCallback, useRef, useLayoutEffect, useEffect, useMemo } from 'react';
 
 export function useDebounceCallback<T extends unknown[]>(callback: (...args: T) => void, delay: number) {
   const callbackRef = useRef(callback);
@@ -8,24 +8,26 @@ export function useDebounceCallback<T extends unknown[]>(callback: (...args: T) 
     callbackRef.current = callback;
   });
 
+  const cancel = useCallback(() => {
+    if (timer.current) {
+      clearTimeout(timer.current);
+      timer.current = null;
+    }
+  }, []);
+
   useEffect(() => {
-    return () => {
-      if (timer.current) {
-        clearTimeout(timer.current);
-      }
-    };
-  }, [delay]);
+    return cancel;
+  }, [cancel, delay]);
 
-  return useCallback(
+  const run = useCallback(
     (...args: T) => {
-      if (timer.current) {
-        clearTimeout(timer.current);
-      }
-
+      cancel();
       timer.current = setTimeout(() => {
         callbackRef.current(...args);
       }, delay);
     },
-    [delay]
+    [delay, cancel]
   );
+
+  return useMemo(() => ({ run, cancel }), [run, cancel]);
 }

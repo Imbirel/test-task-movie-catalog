@@ -17,7 +17,6 @@ export function MoviePoster({ title, poster, priority = false }: MoviePosterProp
   return (
     <div className={styles['image-container']}>
       <img
-        key={poster}
         src={imgSrc}
         alt={`Постер фильма ${title}`}
         width="200"
